@@ -1,0 +1,28 @@
+name: Test Submodule Access
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-submodule-access:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout main repo and initialize submodules using PAT
+      - name: Checkout main repo with submodules
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.test-for-org-token }}
+          submodules: recursive   # Initialize all submodules
+          fetch-depth: 0          # Needed to allow full history if required
+
+      # List files in submodule
+      - name: List submodule files
+        run: ls -R sub-repo-for-test
+
+      # Optional: Test git status in submodule
+      - name: Check submodule git status
+        run: |
+          cd sub-repo-for-test
+          git fetch
+          git status
