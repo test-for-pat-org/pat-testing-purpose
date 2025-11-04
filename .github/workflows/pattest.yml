@@ -12,7 +12,7 @@ jobs:
       - name: Checkout main repo with submodules
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACTION_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           submodules: recursive   # Initialize all submodules
           fetch-depth: 0          # Needed to allow full history if required
 
